@@ -69,7 +69,7 @@ var Login = React.createClass ({
         </TouchableOpacity>
 
         <TouchableOpacity onPress={this._navigate_to_register}>
-          <Text style={styles.ForgetPwd}>Don't you have an account? Log In</Text>
+          <Text style={styles.ForgetPwd}>Don't you have an account? Sign Up</Text>
         </TouchableOpacity>
 
       <Spinner visible={this.state.visible} textStyle={{color: '#FFF'}} />
@@ -88,6 +88,7 @@ var Login = React.createClass ({
       this.setState({visible: false});
 
       if (res == true){
+        this.props.toggleTabBar();
         this.props.navigator.replace({
           component: Wall,
           passProps: {

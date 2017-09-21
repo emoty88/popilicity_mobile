@@ -115,30 +115,12 @@ export default class Wall extends React.Component {
   }
 
   render(){
-    // const menu = <SideView
-    //     navigator={this.props.navigator}
-    //     navigate2Profile={this.props.navigate2Profile}
-    //     navigate2Search={this.props.navigate2Search}
-    //     navigate2Policy={this.props.navigate2Policy}
-    //     logout={this.props.logout}
-    //     />;
-
-    // let leftButton =(
-    // <TouchableOpacity onPress={this._toggleSideMenu}>
-    //   <Icon name="bars" size={15} color="#2980b9" />
-    // </TouchableOpacity>)
-
     let rightButton =(
     <TouchableOpacity onPress={this._navigate2Notification}>
       <Icon name="bell-o" size={15} color="#2980b9" />
     </TouchableOpacity>)
 
     return (
-        // <SideMenu
-        //   menu={menu}
-        //   isOpen={this.state.isOpen}
-        //   onChange={(isOpen) => this.setState({isOpen: isOpen}) }
-        // >
         <View style={[styles.container, {backgroundColor: '#ecf0f1'}]}>
             <NavigationBar
 
@@ -158,7 +140,6 @@ export default class Wall extends React.Component {
             </ScrollableTabView>
             <Spinner visible={this.state.visible} textStyle={{color: '#FFF'}} />
         </View>
-    //   </SideMenu>
     );
   }
 

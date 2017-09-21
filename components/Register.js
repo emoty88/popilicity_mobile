@@ -13,7 +13,7 @@ import{
 
 // import UserProfile from '../components/UserProfile';
 import Spinner from 'react-native-loading-spinner-overlay';
-
+import WebViewer from '../components/WebViewer';
 import API from '../components/ApiClient'
 var api = new API();
 
@@ -80,8 +80,25 @@ var Register = React.createClass ({
         </TouchableOpacity>
 
         <TouchableOpacity onPress={this._navigate_to_login}>
-          <Text style={styles.ForgetPwd}>Already have an Account? Sign Up</Text>
+          <Text style={styles.ForgetPwd}>Already have an Account? Log In</Text>
         </TouchableOpacity>
+
+
+        <Text style={styles.ForgetPwd}>
+            <Text>
+              By registering, you are agreeing to our
+            </Text>
+            <Text style={{color:'#69D2E7'}} onPress={this._navigate_to_terms}>
+              {' Terms of use '}
+            </Text>
+            <Text>
+              {' and '}
+            </Text>
+            <Text style={{color:'#69D2E7'}} onPress={this._navigate_to_privacy}>
+            Privacy Policy
+            </Text>
+        </Text>
+
 
       <Spinner visible={this.state.visible} textStyle={{color: '#FFF'}} />
       </View>
@@ -138,7 +155,27 @@ var Register = React.createClass ({
 
   _navigate_to_login : function(){
     this.props.navigator.pop();
-  }
+},
+
+    _navigate_to_terms : function(){
+        this.props.navigator.push({
+          component: WebViewer,
+          passProps: {
+            name: 'WebViewer',
+            address: 'https://popilicity.com/static/terms.html'
+          }
+        });
+    },
+
+    _navigate_to_privacy : function(){
+        this.props.navigator.push({
+          component: WebViewer,
+          passProps: {
+            name: 'WebViewer',
+            address: 'https://popilicity.com/static/privacypolicy.htm'
+          }
+        });
+    },
 
 
 });

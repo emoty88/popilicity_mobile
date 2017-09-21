@@ -21,6 +21,7 @@ export default class Landing extends React.Component {
         // console.log('res:');
         // console.log(res)
       if(res){
+        this.props.toggleTabBar();
         let route = {
           component: Wall,
           title: 'Wall',
@@ -35,7 +36,8 @@ export default class Landing extends React.Component {
           component: Login,
           title: 'Login',
           passProps: {
-            name: 'Login'
+            name: 'Login',
+            toggleTabBar: this.props.toggleTabBar
           }
         }
         this.props.navigator.replace(route);

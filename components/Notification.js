@@ -66,6 +66,7 @@ export default class Notification extends React.Component{
     <TouchableOpacity onPress={()=>{this.props.navigator.pop();}}>
       <Icon name="chevron-left" size={15} color="#2980b9" />
     </TouchableOpacity>)
+    
     return (
       <View style={[styles.container,{backgroundColor:'#fff'}]}>
         <NavigationBar

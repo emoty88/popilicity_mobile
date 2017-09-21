@@ -30,8 +30,8 @@ var api = new API();
 
 export default class popilicity_mobile extends Component {
   componentWillMount(){
-    this.setState({'toolBarVisible': true});
-    api.logout()
+    this.setState({'toolBarVisible': false});
+    // api.logout()
   }
   render() {
     return (
@@ -43,7 +43,9 @@ export default class popilicity_mobile extends Component {
             initialRoute={{
               title:'Landing',
               component: Landing,
-              passProps:{}
+              passProps:{
+                  toggleTabBar: this._toggleTabBar
+              }
              }}
             navigationBarHidden={true}
 
@@ -61,8 +63,6 @@ export default class popilicity_mobile extends Component {
               navigate2Profile={this._navigate2Profile}
             /> : null
           }
-
-
 
       </View>
     );
@@ -103,9 +103,7 @@ export default class popilicity_mobile extends Component {
 
   _navigate2Camera = () => {
     //this.setState({toolBarVisible: false});
-    console.log('here');
     this._toggleTabBar();
-    console.log('here 2');
     let route = {
       component: SendPost,
       passProps: {
@@ -113,9 +111,7 @@ export default class popilicity_mobile extends Component {
         toggleTabBar: this._toggleTabBar
       }
     }
-    console.log('here 3');
     this._nav.push(route);
-    console.log('here 4');
   }
 
   _navigate2Profile = () => {
