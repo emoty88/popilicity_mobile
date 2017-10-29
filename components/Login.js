@@ -9,32 +9,34 @@ import{
   TextInput,
   TouchableOpacity,
   AlertIOS,
-  KeyboardAvoidingView,
 } from 'react-native';
 
 
 import Register from '../components/Register';
 import Wall from '../components/Wall';
+import NavigationBar from '../components/NavigationBar';
 import Spinner from 'react-native-loading-spinner-overlay';
 
 import API from '../components/ApiClient'
 var api = new API();
 
-var Login = React.createClass ({
+export default class Login extends React.Component {
+    constructor(props){
+      super(props);
+    }
+
   componentWillMount(){
     this.setState({email:''});
     this.setState({password:''});
     this.setState({ErrorMsg:''});
-  },
+  }
+
   render() {
     return (
-      <KeyboardAvoidingView
-        behavior='padding'
+      <View
+        behavior='height'
         style={[styles.container, {backgroundColor:'#ffffff'}]}>
-        <Image
-           style={styles.LoginImage}
-           source={{uri: SETTINGS.SITE_URL+'/static/images/LogoBig.png'}}
-         />
+        <NavigationBar/>
          <TextInput
             style={styles.textInput}
             placeholder="Email"
@@ -55,6 +57,8 @@ var Login = React.createClass ({
                this.setState({password:text});
              }}
              secureTextEntry = {true}
+             returnKeyType='go'
+             onSubmitEditing={this._onPress_loginBtn}
            />
          <View style={styles.Line}></View>
          <Text>{this.state.ErrorMsg}</Text>
@@ -73,11 +77,12 @@ var Login = React.createClass ({
         </TouchableOpacity>
 
       <Spinner visible={this.state.visible} textStyle={{color: '#FFF'}} />
-      </KeyboardAvoidingView>
+      </View>
 
     );
-  },
-  _onPress_loginBtn : function(){
+  }
+
+  _onPress_loginBtn = () => {
     this.setState({ErrorMsg: 'Login Processing...'});
     this.setState({visible: true});
     let email = this.state.email;
@@ -92,7 +97,10 @@ var Login = React.createClass ({
         this.props.navigator.replace({
           component: Wall,
           passProps: {
-            name: 'Wall'
+            name: 'Wall',
+            toggleTabBar: this.props.toggleTabBar,
+            _logout: this.props._logout,
+            controller: this.props.controller,
           }
         });
       } else {
@@ -101,18 +109,19 @@ var Login = React.createClass ({
 
 
     });
-  },
+  }
 
-  _navigate_to_register(){
+  _navigate_to_register = () => {
     this.props.navigator.push({
       component: Register,
       passProps: {
-        name: 'Register'
+        name: 'Register',
+        toggleTabBar: this.props.toggleTabBar,
+        _logout: this.props._logout,
+        controller: this.props.controller,
       }
     });
-  },
+  }
 
-});
+};
 import styles from '../styles/PopilicityStyles'
-
-module.exports = Login;

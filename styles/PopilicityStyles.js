@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     width: 120,
     height: 120,
     borderRadius: 60,
-    marginTop: 100,
+    marginTop: 0,
     borderWidth: 10,
     borderColor: '#ecf0f1',
   },
@@ -41,9 +41,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   ForgetPwd: {
-    marginTop: 15,
+    marginTop: 10,
     color: '#bdc3c7',
-    fontSize: 15
+    fontSize: 13
   },
   textInput: {
     height: 40,

@@ -10,14 +10,7 @@ var API = class{
   }
 
   async test(){
-    console.log('test fired');
-    AsyncStorage.getItem('@authToken:token').then((token) => {
-        // console.log('sad:');
-        // console.log(token);
-    });
     let token = await AsyncStorage.getItem('@authToken:token');
-    // console.log('test await token:')
-    // console.log(token)
   }
 
   login (username, password){
@@ -39,7 +32,7 @@ var API = class{
       try {
 
         if ('token' in responseJson){
-          // console.log(responseJson);
+        //   console.log(responseJson);
           AsyncStorage.setItem('@authToken:token', responseJson['token']);
           AsyncStorage.setItem('@username', username);
           AsyncStorage.setItem('@password', password);
@@ -84,7 +77,6 @@ var API = class{
         const fetchRes = await fetch(SETTINGS.API_URL + 'token-verify/', options)
         .then((response) => response.json())
         .then((responseJson) => {
-        //   console.log(responseJson)
           if ('token' in responseJson){
             return true
           }
@@ -100,7 +92,6 @@ var API = class{
         return fetchRes
       }
     } catch (error) {
-        console.log('sikko error');
         console.log(error);
     }
   }
@@ -131,7 +122,7 @@ var API = class{
     return promise
   }
 
-  async get_posts(){
+  async get_posts(page=1){
     const token = await AsyncStorage.getItem('@authToken:token');
     let options = {
       method: 'GET',
@@ -142,7 +133,7 @@ var API = class{
       }
     };
 
-    let promise = fetch(SETTINGS.API_URL + 'posts/', options)
+    let promise = fetch(SETTINGS.API_URL + 'posts/?page=' + page, options)
     .then((response) => response.json())
     .then((responseJson) => {
       return responseJson;
@@ -265,7 +256,6 @@ var API = class{
         rate: rate,
       }),
     };
-    // console.log(options);
     let promise = await fetch(SETTINGS.API_URL + 'rates/', options)
     .then((response) => response.json())
     .then((responseJson) => {
@@ -294,7 +284,6 @@ var API = class{
         type: reaction_type,
       }),
     };
-    //console.log(options);
     let promise = await fetch(SETTINGS.API_URL + 'reactions/', options)
     .then((response) => response.json())
     .then((responseJson) => {
@@ -347,7 +336,6 @@ var API = class{
   }
 
   async searchPost(text, max_time, min_time){
-    //console.log(text);
     const token = await AsyncStorage.getItem('@authToken:token');
     let options = {
       method: 'GET',
@@ -492,12 +480,6 @@ var API = class{
     });
 
     return promise
-  }
-
-  async set_storage(token, username, password){
-    //   console.log(token);
-    //   console.log(username);
-    //   console.log(password);
   }
 };
 

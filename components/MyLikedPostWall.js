@@ -98,8 +98,8 @@ export default class MyLikedPostWall extends React.Component {
         name: 'Landing'
       }
     }
-    console.log(route);
-    //this.props.navigator.push(route)
+    // console.log(route);
+    // this.props.navigator.push(route)
   }
 
 

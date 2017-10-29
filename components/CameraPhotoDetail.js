@@ -11,13 +11,15 @@ import{
   AlertIOS,
   TextInput,
 } from 'react-native';
+
 import NavigationBar from '../components/NavigationBar';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Wall from '../components/Wall';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 import API from '../components/ApiClient'
 var api = new API();
-import Spinner from 'react-native-loading-spinner-overlay';
+
 var CameraPhotoDetail = React.createClass({
   componentWillMount(){
     this.setState({comment:'', interest:'', location:'', visible: false});
@@ -97,13 +99,17 @@ var CameraPhotoDetail = React.createClass({
     );
   },
   _publishPost(){
-    this.setState({visible: true});
-    let publishPromise = api.publishPost(this.props.photo, this.state.comment, this.state.interest, this.state.location);
-    publishPromise.then((res) => {
-      this.setState({visible: true});
-      this.props.toggleTabBar();
-      this.props.navigator.popToTop();
-    });
+    // this.setState({visible: true});
+    this.props.toggleTabBar();
+    this.props.controller.publishPost(this.props.photo, this.state.comment, this.state.interest, this.state.location);
+    this.props.navigator.popToTop();
+    // let publishPromise = api.publishPost(this.props.photo, this.state.comment, this.state.interest, this.state.location);
+    // publishPromise.then((res) => {
+    //   this.setState({visible: true});
+    //   this.props.toggleTabBar();
+    //   this.props.controller.uploadingPost = 'Uploading...!';
+    //   this.props.navigator.popToTop();
+    // });
   }
 });
 import styles from '../styles/PopilicityStyles'

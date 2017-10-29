@@ -79,7 +79,8 @@ export default class LibraryScreen extends React.Component {
         passProps: {
           name: 'Camera',
           photo: photoObj,
-          toggleTabBar: this.props.toggleTabBar
+          toggleTabBar: this.props.toggleTabBar,
+          controller: this.props.controller
         }
       });
     });

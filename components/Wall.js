@@ -7,7 +7,9 @@ import{
     TouchableOpacity,
     AlertIOS,
     ScrollView,
-    AsyncStorage
+    FlatList,
+    AsyncStorage,
+    Image
 } from 'react-native';
 import moment from 'moment'
 
@@ -54,17 +56,61 @@ class ProfileWall extends React.Component{
     }
 }
 
-
 class PostWall extends React.Component {
+    posts = []
+
     render(){
-        const PostComponents = this.props.posts ?
-            this._getPostsComponents(this.props.posts) :
+        this.posts = this.props.posts;
+        let uploadingPost = null;
+        if(this.props.controller.postUploading){
+            uploadingPost = (
+                <View style={[styles.PostItemContainer,{flexDirection:'row'}]}>
+                    <Image
+                     style={{height:50, width:50, margin:10}}
+                     source={{uri: this.props.controller.postImage.base64}}
+                   />
+               <Text style={{alignSelf:'center', fontSize:18}}>Uploading...</Text>
+                </View>
+            )
+        }
+        ////Add to up to this state posts
+        if(this.props.controller.uploadedPost){
+            this.posts = [this.props.controller.uploadedPost, ...this.posts]
+            // uploadingPost = (
+            //     <PostItem
+            //       key= {this.props.controller.uploadedPost.id}
+            //       post = {this.props.controller.uploadedPost}
+            //       navigator = {this.props.navigator}
+            //       updateWallFunc = {this.props.updateWall}
+            //     />
+            // )
+        }
+        ///
+        const PostComponents = this.posts ?
+            (<FlatList
+                data={this.posts}
+                renderItem={this._renderPostItem}
+                onEndReached = {this.props.loadNextPage}
+            />) :
             <Text></Text>
         return(
-            <ScrollView>
+            <View>
+                {uploadingPost}
                 {PostComponents}
-            </ScrollView>
+            </View>
         )
+    }
+
+    _renderPostItem = (item) => {
+        let post = item.item;
+        return (
+          <PostItem
+            key = {post.id}
+            post = {post}
+            navigator = {this.props.navigator}
+            updateWallFunc = {this.props.updateWall}
+          />
+        );
     }
 
     _getPostsComponents = (posts) => {
@@ -85,33 +131,33 @@ class PostWall extends React.Component {
 export default class Wall extends React.Component {
 
   componentWillMount(){
-    this.setState({visible:true});
-    this.setState({posts:null});
-    this.setState({popular_posts:null});
-    this.setState({profiles:null});
-    this.setState({'isOpen': false});
+    this.setState({
+        visible:true,
+        notCount:0,
+        posts:[],
+        popular_posts:null,
+        profiles:null,
+        isOpen: false,
+        post_page: 1,
+    });
   }
 
   componentDidMount(){
-    let post_promise = api.get_posts();
-    post_promise.then((posts) => {
-        this.setState({posts:posts.results});
-        this.setState({visible:false});
-    });
+      this._loadPosts();
 
-    let max_time = moment().format('YYYY-MM-DD HH:mm:ss');
-    let min_time = moment().subtract(30,'hours').format('YYYY-MM-DD HH:mm:ss');
+      let max_time = moment().format('YYYY-MM-DD HH:mm:ss');
+      let min_time = moment().subtract(30,'hours').format('YYYY-MM-DD HH:mm:ss');
 
 
-    let popularPosts = api.searchPost(false, max_time, min_time);
-    popularPosts.then((posts) => {
-        this.setState({popular_posts: posts.results});
-    });
+      let popularPosts = api.searchPost(false, max_time, min_time);
+      popularPosts.then((posts) => {
+          this.setState({popular_posts: posts.results});
+      });
 
-    let profilePromise = api.searchProfile(false);
-    profilePromise.then((profiles) => {
-      this.setState({profiles:profiles});
-    });
+      let profilePromise = api.searchProfile(false);
+      profilePromise.then((profiles) => {
+          this.setState({profiles:profiles});
+      });
   }
 
   render(){
@@ -123,7 +169,6 @@ export default class Wall extends React.Component {
     return (
         <View style={[styles.container, {backgroundColor: '#ecf0f1'}]}>
             <NavigationBar
-
                 rightButton={rightButton}
                 navigate2Wall = {this.props.navigate2Wall}
             />
@@ -133,9 +178,9 @@ export default class Wall extends React.Component {
                 tabBarActiveTextColor={'#2980b9'}
                 tabBarInactiveTextColor={'#c8c8c8'}
                 >
-                <PostWall tabLabel="Wall" posts={this.state.posts} navigator={this.props.navigator} updateWall={this._updateWall}/>
-                <PostWall tabLabel="Popular Posts" posts={this.state.popular_posts} navigator={this.props.navigator} updateWall={this._updateWall}/>
-                <ProfileWall tabLabel="People" profiles={this.state.profiles} navigator={this.props.navigator}/>
+                <PostWall tabLabel="Wall" posts={this.state.posts} navigator={this.props.navigator} updateWall={this._updateWall} loadNextPage={this._loadNextPage} controller={this.props.controller} />
+                <PostWall tabLabel="Popular Posts" posts={this.state.popular_posts} navigator={this.props.navigator} updateWall={this._updateWall} controller={this.props.controller}/>
+                <ProfileWall tabLabel="People" profiles={this.state.profiles} navigator={this.props.navigator} controller={this.props.controller}/>
 
             </ScrollableTabView>
             <Spinner visible={this.state.visible} textStyle={{color: '#FFF'}} />
@@ -146,6 +191,17 @@ export default class Wall extends React.Component {
   _toggleSideMenu = () => {
     //console.log('pressed');
     this.setState({isOpen: !this.state.isOpen});
+  }
+
+  _loadNextPage = () => {
+      this.setState({post_page: this.state.post_page + 1}, this._loadPosts)
+  }
+
+  _loadPosts = () => {
+      this.props.controller.loadPosts(this.state.post_page).then((posts) => {
+          this.setState({posts: [...this.state.posts, ...posts.results]});
+          this.setState({visible:false});
+      });
   }
 
   _updateWall = () => {

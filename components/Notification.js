@@ -24,6 +24,10 @@ class NotificationTemplate extends React.Component{
     let reactionTest = 'loved';
     if (this.props.item.action == -1){
       reactionTest = 'liked'
+    } else if (this.props.item.action == 5){
+      reactionTest = 'rated'
+    } else if (this.props.item.action == 2){
+      reactionTest = 'commented'
     }
     return(
       <View style={{flex:1, flexDirection:'row'}}>
@@ -66,7 +70,7 @@ export default class Notification extends React.Component{
     <TouchableOpacity onPress={()=>{this.props.navigator.pop();}}>
       <Icon name="chevron-left" size={15} color="#2980b9" />
     </TouchableOpacity>)
-    
+
     return (
       <View style={[styles.container,{backgroundColor:'#fff'}]}>
         <NavigationBar

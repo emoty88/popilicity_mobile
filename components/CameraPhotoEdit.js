@@ -43,7 +43,8 @@ var CameraPhoto = React.createClass({
       passProps: {
         name: 'Photo Detail',
         photo: this.props.photo,
-        toggleTabBar: this.props.toggleTabBar
+        toggleTabBar: this.props.toggleTabBar,
+        controller: this.props.controller,
       }
     }
 

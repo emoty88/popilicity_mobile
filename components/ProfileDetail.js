@@ -13,6 +13,7 @@ import{
 SETTINGS = require('../components/Settings');
 import NavigationBar from '../components/NavigationBar';
 import PostItem from '../components/PostItem';
+import EditProfile from '../components/EditProfile';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const CachedImage = require('react-native-cached-image');
@@ -24,13 +25,19 @@ export default class ProfileDetail extends React.Component {
 
   componentWillMount(){
     //console.log(this.props.user);
+    this.setState({is_myProfile:false})
     this.setState({profile:null});
     this.setState({posts:null});
     this.setState({'isOpen': false});
-    console.log(this.props.user);
     let profile_promise = api.getProfile(this.props.user.id);
     profile_promise.then((user) => {
       this.setState({profile: user[0]})
+    });
+
+    api.getloggedUser().then((res) => {
+        if(res[0].id == this.props.user.id){
+            this.setState({is_myProfile:true})
+        }
     });
   }
 
@@ -49,6 +56,24 @@ export default class ProfileDetail extends React.Component {
       <Icon name="chevron-left" size={15} color="#2980b9" />
     </TouchableOpacity>)
 
+    let rightButton = null;
+    if(this.state.is_myProfile){
+        rightButton =(
+        <TouchableOpacity onPress={()=>{
+            this.props.navigator.push({
+              component: EditProfile,
+              passProps: {
+                name: 'EditProfile',
+                profile: this.state.profile,
+                toggleTabBar: this.props.toggleTabBar,
+                _logout: this.props._logout,
+              }
+            });
+        }}>
+          <Text style={styles.navBarButtonText}>Edit</Text>
+        </TouchableOpacity>)
+    }
+
     const PostComponents = this.state.posts ?
         this._getPostsComponents(this.state.posts) :
         <Text>Post not exist</Text>
@@ -56,6 +81,7 @@ export default class ProfileDetail extends React.Component {
       <View style={[styles.container, {backgroundColor: '#ecf0f1'}]}>
           <NavigationBar
             leftButton={leftButton}
+            rightButton={rightButton}
             navigate2Wall = {this.props.navigate2Wall}
           />
 
@@ -66,7 +92,7 @@ export default class ProfileDetail extends React.Component {
 
                 <CachedImage
                    style={styles.UserProfileProfileImage}
-                   source={{uri: SETTINGS.SITE_URL +this.props.user.image_path}}
+                   source={{uri: SETTINGS.SITE_URL + this.props.user.image_path}}
                  />
                  <View style={styles.UserProfileDetailCard}>
                    <View style={{marginHorizontal:15}}>
@@ -104,7 +130,7 @@ export default class ProfileDetail extends React.Component {
                  </View>
                </View>
                <View style={styles.UserProfileCardL2}>
-                <Text style={{fontWeight:'bold'}}>{this.props.user.first_name} - {this.props.user.id}</Text>
+                <Text style={{fontWeight:'bold'}}>{this.props.user.first_name}</Text>
                 <View style={{flexDirection:'row'}}>
                   <Text style={{color:'#808685'}}>@{this.state.profile ? this.state.profile.location.name: 'Location' }</Text>
                   <Text style={{marginLeft:20, color:'#808685'}}>#{this.state.profile ? this.state.profile.interest.name: 'Interest'} </Text>

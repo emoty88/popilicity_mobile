@@ -21,7 +21,7 @@ export default class SearchPeople extends React.Component{
     const posts = this.props.posts ?
         this.props.posts :
         [];
-    console.log(posts)
+    // console.log(posts)
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     //let testContent = ['test1', 'test2', 'test3', 'test5']
     let postSource = ds.cloneWithRows(posts);
@@ -35,12 +35,12 @@ export default class SearchPeople extends React.Component{
           }
           dataSource={postSource}
           renderRow={(post) =>
-              <Text>{post}</Text>
-            // <PostItem
-            //   key= {post.id}
-            //   post = {post}
-            //   navigator = {this.props.navigator}
-            // />
+            //   <Text>{post}</Text>
+            <PostItem
+              key= {post.id}
+              post = {post}
+              navigator = {this.props.navigator}
+            />
           }
         />
       </View>

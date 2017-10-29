@@ -28,11 +28,15 @@ import ProfileDetail from './components/ProfileDetail';
 import API from './components/ApiClient';
 var api = new API();
 
+import CONT from './components/Controller';
+var con = new CONT();
+
 export default class popilicity_mobile extends Component {
   componentWillMount(){
     this.setState({'toolBarVisible': false});
     // api.logout()
   }
+
   render() {
     return (
       <View style={{flex:1}}>
@@ -44,12 +48,13 @@ export default class popilicity_mobile extends Component {
               title:'Landing',
               component: Landing,
               passProps:{
-                  toggleTabBar: this._toggleTabBar
+                  name: 'Landing',
+                  toggleTabBar: this._toggleTabBar,
+                  controller : con,
+                  logout: this._logout
               }
              }}
             navigationBarHidden={true}
-
-            renderScene={ this.renderScene }
             configureScene= {this.configureScene}
             />
           {
@@ -73,7 +78,8 @@ export default class popilicity_mobile extends Component {
       component: Wall,
       title: 'Wall',
       passProps: {
-        name: 'Wall'
+        name: 'Wall',
+        controller: con,
       }
     }
     this._nav.replace(route);
@@ -84,7 +90,8 @@ export default class popilicity_mobile extends Component {
       component: SearchView,
       title: 'SearchView',
       passProps: {
-        name: 'SearchView'
+        name: 'SearchView',
+        controller: con,
       }
     }
     this._nav.push(route);
@@ -95,7 +102,8 @@ export default class popilicity_mobile extends Component {
       component: MyLikedPostWall,
       title: 'MyLikedPostWall',
       passProps: {
-        name: 'MyLikedPostWall'
+        name: 'MyLikedPostWall',
+        controller: con,
       }
     }
     this._nav.push(route);
@@ -108,7 +116,8 @@ export default class popilicity_mobile extends Component {
       component: SendPost,
       passProps: {
         name: 'SendPost',
-        toggleTabBar: this._toggleTabBar
+        toggleTabBar: this._toggleTabBar,
+        controller: con,
       }
     }
     this._nav.push(route);
@@ -124,6 +133,8 @@ export default class popilicity_mobile extends Component {
         passProps: {
           name: 'ProfileDetail',
           toggleTabBar: this._toggleTabBar,
+          controller: con,
+          _logout: this._logout,
           user: user[0],
         }
       }
@@ -133,18 +144,19 @@ export default class popilicity_mobile extends Component {
   }
 
   _logout = () => {
-    console.log('sad');
     let logout = api.logout();
     logout.then((is_logout) =>{
-        console.log('logout');
         let route = {
           component: Landing,
           title: 'Landing',
           passProps: {
             name: 'Landing',
+            controller: con,
+            toggleTabBar: this._toggleTabBar,
           }
         }
-        this._nav.push(route);
+        this._toggleTabBar();
+        this._nav.replace(route);
 
     }).catch((error) => {
       console.error(error);
@@ -154,16 +166,16 @@ export default class popilicity_mobile extends Component {
   }
 
   _toggleTabBar = () => {
-    //console.log('sda');
     this.setState({toolBarVisible: !this.state.toolBarVisible});
   }
 
   renderScene = (route, navigator) => {
     return <route.component
-      navigator={navigator}
+      navigator = {navigator}
       navigate2Profile = {this._navigate2Profile}
       navigate2Search = {this._navigate2Search}
       navigate2Wall = {this._navigate2Wall}
+      toggleTabBar = {this._toggleTabBar}
       logout = {this._logout}
       {...route.passProps} />
   }

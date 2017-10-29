@@ -31,8 +31,8 @@ export default class CameraScreen extends React.Component {
     return (
       <View style={[styles.container, {backgroundColor:'#ffffff'}]}>
         <NavigationBar
-          leftButton={this.state.leftButton}
-          rightButton={this.state.rightButton}
+          leftButton= {this.state.leftButton}
+          rightButton= {this.state.rightButton}
           navigate2Wall = {this.props.navigate2Wall}
         />
         <Camera
@@ -68,7 +68,8 @@ export default class CameraScreen extends React.Component {
           passProps: {
             name: 'Camera',
             photo: photoObj,
-            toggleTabBar: this.props.toggleTabBar
+            toggleTabBar: this.props.toggleTabBar,
+            controller: this.props.controller
           }
         });
 

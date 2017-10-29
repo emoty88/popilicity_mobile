@@ -11,27 +11,26 @@ import{
   AlertIOS,
 } from 'react-native';
 
-// import UserProfile from '../components/UserProfile';
+import UserProfile from '../components/UserProfile';
+import NavigationBar from '../components/NavigationBar';
 import Spinner from 'react-native-loading-spinner-overlay';
 import WebViewer from '../components/WebViewer';
 import API from '../components/ApiClient'
 var api = new API();
 
-var Register = React.createClass ({
+export default class Register extends React.Component {
+    constructor(props){
+      super(props);
+    }
+
   componentWillMount(){
-    this.setState({name:''});
-    this.setState({lastname:''});
-    this.setState({email:''});
-    this.setState({password:''});
-  },
+    this.setState({name:'', lastname:'', email:'', password:'', ErrorMsg:''});
+  }
+
   render() {
     return (
       <View style={[styles.container, {backgroundColor:'#ffffff'}]}>
-        <Image
-           style={styles.LoginImage}
-           source={{uri: SETTINGS.SITE_URL+'/static/images/LogoBig.png'}}
-         />
-
+          <NavigationBar/>
          <TextInput
             style={styles.textInput}
             placeholder="Name"
@@ -53,6 +52,7 @@ var Register = React.createClass ({
           <TextInput
              style={styles.textInput}
              placeholder="Email"
+             keyboardType='email-address'
              onChangeText={(text) => {
                this.setState({email:text});
              }}
@@ -68,7 +68,7 @@ var Register = React.createClass ({
             secureTextEntry = {true}
           />
         <View style={styles.Line}></View>
-
+        <Text>{this.state.ErrorMsg}</Text>
 
         <TouchableOpacity style={styles.LoginBtn} onPress={this._register_btn}>
           <Text style={styles.LoginBtnText} >REGISTER</Text>
@@ -83,8 +83,9 @@ var Register = React.createClass ({
           <Text style={styles.ForgetPwd}>Already have an Account? Log In</Text>
         </TouchableOpacity>
 
+        <View style={{flex:1}}></View>
 
-        <Text style={styles.ForgetPwd}>
+        <Text style={[styles.ForgetPwd,{alignSelf:'center',marginBottom:20}]}>
             <Text>
               By registering, you are agreeing to our
             </Text>
@@ -98,14 +99,13 @@ var Register = React.createClass ({
             Privacy Policy
             </Text>
         </Text>
-
-
-      <Spinner visible={this.state.visible} textStyle={{color: '#FFF'}} />
+        <Spinner visible={this.state.visible} textStyle={{color: '#FFF'}} />
       </View>
 
     );
-  },
-  _register_btn : function(){
+  }
+
+  _register_btn = () => {
     this.setState({visible: true});
     let name = this.state.name;
     let lastname = this.state.lastname;
@@ -128,7 +128,23 @@ var Register = React.createClass ({
     };
 
     fetch(SETTINGS.API_URL + 'users/', options)
-    .then((response) => response.json())
+    .then((response) => {
+        console.log(response);
+        console.log(response.ok);
+        console.log(typeof(response.ok));
+        if(!response.ok){
+            response.json().then((obj)=>{
+                let message = '';
+                for(var k in obj){
+                    message += k + ' : ' + obj[k][0] + '\n'
+                }
+                this.setState({ErrorMsg: message});
+                this.setState({visible: false});
+                throw Error(message)
+            });
+        }
+        return response.json()
+    })
     .then((responseJson) => {
       var loginPromise = api.login(email, password);
       loginPromise.then((res) => {
@@ -137,27 +153,32 @@ var Register = React.createClass ({
           this.props.navigator.push({
             component: UserProfile,
             passProps: {
-              name: 'UserProfile'
+              name: 'UserProfile',
+              toggleTabBar: this.props.toggleTabBar,
+              _logout: this.props._logout,
+              controller: this.props.controller,
             }
           });
         } else {
-          this.setState({ErrorMsg: res.non_field_errors});
+            console.log(res)
+            this.setState({ErrorMsg: res.non_field_errors});
         }
 
 
       });
     })
-    .catch((error) => {
-      console.error(error);
-      return error
+    .catch((e) => {
+        console.log(e.message)
+        // this.setState({ErrorMsg: e.message});
+        return False
     });
-  },
+  }
 
-  _navigate_to_login : function(){
+  _navigate_to_login = () => {
     this.props.navigator.pop();
-},
+}
 
-    _navigate_to_terms : function(){
+    _navigate_to_terms = () => {
         this.props.navigator.push({
           component: WebViewer,
           passProps: {
@@ -165,9 +186,9 @@ var Register = React.createClass ({
             address: 'https://popilicity.com/static/terms.html'
           }
         });
-    },
+    }
 
-    _navigate_to_privacy : function(){
+    _navigate_to_privacy = () => {
         this.props.navigator.push({
           component: WebViewer,
           passProps: {
@@ -175,10 +196,7 @@ var Register = React.createClass ({
             address: 'https://popilicity.com/static/privacypolicy.htm'
           }
         });
-    },
+    }
 
-
-});
+};
 import styles from '../styles/PopilicityStyles'
-
-module.exports = Register;

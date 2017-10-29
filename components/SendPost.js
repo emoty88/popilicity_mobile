@@ -28,7 +28,6 @@ export default class SendPost extends React.Component {
   }
 
   componentWillMount() {
-    console.log('sdsd');
     let leftButton =(
     <TouchableOpacity onPress={()=>{this.props.navigator.pop(); this.props.toggleTabBar(); }}>
       <Text style={styles.navBarButtonText}>Cancel</Text>
@@ -45,7 +44,8 @@ export default class SendPost extends React.Component {
         passProps: {
           name: 'Camera',
           photo: photoObj,
-          toggleTabBar: this.props.toggleTabBar
+          toggleTabBar: this.props.toggleTabBar,
+          controller: this.props.controller,
         }
       });
 
@@ -55,7 +55,6 @@ export default class SendPost extends React.Component {
 
 
   render(){
-      console.log('render');
     return (
       <View style={[styles.container, {backgroundColor:'#ffffff'}]}>
         <ScrollableTabView
@@ -69,11 +68,13 @@ export default class SendPost extends React.Component {
           <LibraryScreen
             navigator={this.props.navigator}
             toggleTabBar={this.props.toggleTabBar}
+            controller={this.props.controller}
             tabLabel="Library" />
 
           <CameraScreen
             navigator={this.props.navigator}
             toggleTabBar={this.props.toggleTabBar}
+            controller={this.props.controller}
             tabLabel="Camera" />
 
           <VideoRecordScreen tabLabel="Video" />
