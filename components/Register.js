@@ -129,9 +129,6 @@ export default class Register extends React.Component {
 
     fetch(SETTINGS.API_URL + 'users/', options)
     .then((response) => {
-        console.log(response);
-        console.log(response.ok);
-        console.log(typeof(response.ok));
         if(!response.ok){
             response.json().then((obj)=>{
                 let message = '';

@@ -481,6 +481,37 @@ var API = class{
 
     return promise
   }
+
+
+  async reportPost(postID, reason){
+    let token = await AsyncStorage.getItem('@authToken:token');
+    let options = {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'JWT ' + token
+      },
+      body: JSON.stringify({
+        post_is_reported: postID,
+        reason, reason
+      }),
+    };
+
+    let promise = await fetch(SETTINGS.API_URL + 'report/', options)
+    .then((response) => response.json())
+    .then((responseJson) => {
+        console.log(responseJson);
+      return responseJson;
+    })
+    .catch((error) => {
+      console.error(error);
+      //return error
+      return false
+    });
+
+    return promise
+  }
 };
 
 module.exports = API;

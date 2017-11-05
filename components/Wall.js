@@ -25,6 +25,7 @@ import ProfileItem from '../components/ProfileItem';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 var ScrollableTabView = require('react-native-scrollable-tab-view');
+import ActionSheet from 'react-native-actionsheet';
 
 import API from '../components/ApiClient'
 var api = new API();
@@ -88,6 +89,7 @@ class PostWall extends React.Component {
         ///
         const PostComponents = this.posts ?
             (<FlatList
+                keyExtractor={item => item.id}
                 data={this.posts}
                 renderItem={this._renderPostItem}
                 onEndReached = {this.props.loadNextPage}
@@ -109,6 +111,7 @@ class PostWall extends React.Component {
             post = {post}
             navigator = {this.props.navigator}
             updateWallFunc = {this.props.updateWall}
+            controller = {this.props.controller}
           />
         );
     }
@@ -121,6 +124,7 @@ class PostWall extends React.Component {
             post = {post}
             navigator = {this.props.navigator}
             updateWallFunc = {this.props.updateWall}
+            controller = {this.props.controller}
           />
         );
       });
@@ -172,6 +176,7 @@ export default class Wall extends React.Component {
                 rightButton={rightButton}
                 navigate2Wall = {this.props.navigate2Wall}
             />
+
             <ScrollableTabView
                 tabBarUnderlineStyle={{height:1, backgroundColor:'#2980b9'}}
                 tabBarBackgroundColor={'#ffffff'}

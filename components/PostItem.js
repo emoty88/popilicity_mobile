@@ -10,7 +10,6 @@ import{
   TouchableOpacity,
   ScrollView,
   Image,
-  AlertIOS,
 } from 'react-native';
 
 import PostComments from '../components/PostComments';
@@ -118,8 +117,8 @@ export default class PostItem extends React.Component {
                   </Text>
                   </View>
                   <View style={{marginRight:20, paddingTop:5}}>
-                      <TouchableOpacity onPress={()=>{this.blockUser(post.owner.id, post.owner.first_name)}}>
-                          <Icon name="ban" size={20}/>
+                      <TouchableOpacity onPress={()=>{this.props.controller.flagPost(post.owner.id, post.id, post.owner.first_name)}}>
+                          <Icon name="ellipsis-v" size={20} style={{color:'#707070'}}/>
                       </TouchableOpacity>
                   </View>
               </View>
@@ -140,28 +139,6 @@ export default class PostItem extends React.Component {
           />:null }
       </View>
     );
-  }
-
-  blockUser = (id, name) =>{
-      AlertIOS.alert(
-          'Block ' + name + ' ?',
-          'You will no longer see this user posts.',
-          [
-              {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-              {text: 'Yes', onPress: () => {
-                  api.blockUser(id).then((data) => {
-                      if ('non_field_errors' in data)
-                      {
-                          AlertIOS.alert(
-                              'Blocking Error',
-                              'You cannot block yourself.'
-                          );
-                      }
-                      this.props.updateWallFunc();
-                  });
-              }},
-            ]
-          );
   }
 
   commentPage = () => {
