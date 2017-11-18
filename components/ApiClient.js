@@ -454,6 +454,31 @@ var API = class{
     return promise
   }
 
+  async getNotificationCount(){
+    let token = await AsyncStorage.getItem('@authToken:token');
+    let options = {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'JWT ' + token
+      }
+    };
+
+    let promise = await fetch(SETTINGS.API_URL + 'notificationCount/', options)
+    .then((response) => response.json())
+    .then((responseJson) => {
+      return responseJson;
+    })
+    .catch((error) => {
+      console.error(error);
+      //return error
+      return false
+    });
+
+    return promise
+  }
+
   async blockUser(blocked_user_id){
     let token = await AsyncStorage.getItem('@authToken:token');
     let options = {

@@ -162,13 +162,27 @@ export default class Wall extends React.Component {
       profilePromise.then((profiles) => {
           this.setState({profiles:profiles});
       });
+
+      let notCountPromise = api.getNotificationCount();
+      notCountPromise.then((count) => this.setState({notCount:count}) )
   }
 
   render(){
-    let rightButton =(
-    <TouchableOpacity onPress={this._navigate2Notification}>
-      <Icon name="bell-o" size={15} color="#2980b9" />
-    </TouchableOpacity>)
+      let rightButton =(
+          <TouchableOpacity onPress={this._navigate2Notification}>
+            <Icon name="bell-o" size={15} color="#2980b9" />
+          </TouchableOpacity>)
+
+    if(this.state.notCount > 0){
+        rightButton =(
+            <TouchableOpacity onPress={this._navigate2Notification}>
+            <View style={{backgroundColor:'red',padding:4, borderRadius:15, minWidth:25,height:25}}>
+                <Text style={{color:'#f5f5f5', alignSelf:'center', fontWeight:'bold'}}>
+                  {this.state.notCount}
+                </Text>
+            </View>
+            </TouchableOpacity>)
+    }
 
     return (
         <View style={[styles.container, {backgroundColor: '#ecf0f1'}]}>
@@ -238,6 +252,7 @@ export default class Wall extends React.Component {
   }
 
   _navigate2Notification = () => {
+    this.setState({notCount:0})
     let route = {
       component: Notification,
       passProps: {

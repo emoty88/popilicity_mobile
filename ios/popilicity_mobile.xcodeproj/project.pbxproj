@@ -24,6 +24,7 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
+		23DBE807EA144CE9BD70BE1A /* libRNAssetResizeToBase64.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 20D69A02E7BC4DACAD2601E0 /* libRNAssetResizeToBase64.a */; };
 		28192954DB5A4A28AC4AD3DC /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2013E3C258E349C88149288C /* libRNImagePicker.a */; };
 		2BC0CF7458174C8AA0F4E9C0 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2B75649E2EAD4912A2936EB1 /* Octicons.ttf */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
@@ -117,6 +118,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = 83CBBA2E1A601D0E00E9B192;
 			remoteInfo = React;
+		};
+		2500F8B51FB5FAD10032FD5A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 685677EC09374AE3AA193A06 /* RNAssetResizeToBase64.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7DF85FE31E63741300B25113;
+			remoteInfo = RNAssetResizeToBase64;
 		};
 		2501BC441F6AEBF2002EA076 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -346,6 +354,7 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = popilicity_mobile/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		2013E3C258E349C88149288C /* libRNImagePicker.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNImagePicker.a; sourceTree = "<group>"; };
+		20D69A02E7BC4DACAD2601E0 /* libRNAssetResizeToBase64.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNAssetResizeToBase64.a; sourceTree = "<group>"; };
 		240BF7A9EE974CE7B240EFA9 /* RCTCamera.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTCamera.xcodeproj; path = "../node_modules/react-native-camera/ios/RCTCamera.xcodeproj"; sourceTree = "<group>"; };
 		27244275D79E4576A118698D /* RNPhotosFramework.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNPhotosFramework.xcodeproj; path = "../node_modules/react-native-photos-framework/ios/RNPhotosFramework.xcodeproj"; sourceTree = "<group>"; };
 		2B75649E2EAD4912A2936EB1 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
@@ -355,6 +364,7 @@
 		39D2C60348A541BB89EA53C7 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		43254CA0A9FE45D1BD97270C /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
+		685677EC09374AE3AA193A06 /* RNAssetResizeToBase64.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNAssetResizeToBase64.xcodeproj; path = "../node_modules/react-native-asset-resize-to-base64/ios/RNAssetResizeToBase64.xcodeproj"; sourceTree = "<group>"; };
 		6E27D8C3581A48878FB309D0 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
@@ -402,6 +412,7 @@
 				132DAEFF6AB04AD1AE9B6DB5 /* libRNFetchBlob.a in Frameworks */,
 				5E88FBE6F60D41EAAA459A22 /* libRNImageToBase64.a in Frameworks */,
 				28192954DB5A4A28AC4AD3DC /* libRNImagePicker.a in Frameworks */,
+				23DBE807EA144CE9BD70BE1A /* libRNAssetResizeToBase64.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -540,6 +551,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		2500F8941FB5FAD10032FD5A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2500F8B61FB5FAD10032FD5A /* libRNAssetResizeToBase64.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		2501BC251F6AEBF2002EA076 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -582,6 +601,7 @@
 				A27FC1B78A974E828DBDB605 /* libRNFetchBlob.a */,
 				8496A923BCFD4D31B1FA3B8A /* libRNImageToBase64.a */,
 				2013E3C258E349C88149288C /* libRNImagePicker.a */,
+				20D69A02E7BC4DACAD2601E0 /* libRNAssetResizeToBase64.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -640,6 +660,7 @@
 				A8884CF8F44A4A88929B236B /* RNFetchBlob.xcodeproj */,
 				9BECA1DCD26347EAA3626F44 /* RNImageToBase64.xcodeproj */,
 				FF8644F71D1E49D8B7A22CFE /* RNImagePicker.xcodeproj */,
+				685677EC09374AE3AA193A06 /* RNAssetResizeToBase64.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -858,6 +879,10 @@
 					ProjectRef = 146833FF1AC3E56700842450 /* React.xcodeproj */;
 				},
 				{
+					ProductGroup = 2500F8941FB5FAD10032FD5A /* Products */;
+					ProjectRef = 685677EC09374AE3AA193A06 /* RNAssetResizeToBase64.xcodeproj */;
+				},
+				{
 					ProductGroup = 25040FC61F6D37140085179F /* Products */;
 					ProjectRef = A8884CF8F44A4A88929B236B /* RNFetchBlob.xcodeproj */;
 				},
@@ -943,6 +968,13 @@
 			fileType = archive.ar;
 			path = libReact.a;
 			remoteRef = 146834031AC3E56700842450 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2500F8B61FB5FAD10032FD5A /* libRNAssetResizeToBase64.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNAssetResizeToBase64.a;
+			remoteRef = 2500F8B51FB5FAD10032FD5A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		2501BC451F6AEBF2002EA076 /* libthird-party.a */ = {
@@ -1297,12 +1329,14 @@
 					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-image-to-base64/ios",
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
+					"$(SRCROOT)/../node_modules/react-native-asset-resize-to-base64/ios/RNAssetResizeToBase64/**",
 				);
 				INFOPLIST_FILE = popilicity_mobileTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1332,12 +1366,14 @@
 					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-image-to-base64/ios",
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
+					"$(SRCROOT)/../node_modules/react-native-asset-resize-to-base64/ios/RNAssetResizeToBase64/**",
 				);
 				INFOPLIST_FILE = popilicity_mobileTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1370,6 +1406,7 @@
 					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-image-to-base64/ios",
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
+					"$(SRCROOT)/../node_modules/react-native-asset-resize-to-base64/ios/RNAssetResizeToBase64/**",
 				);
 				INFOPLIST_FILE = popilicity_mobile/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1400,6 +1437,7 @@
 					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-image-to-base64/ios",
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
+					"$(SRCROOT)/../node_modules/react-native-asset-resize-to-base64/ios/RNAssetResizeToBase64/**",
 				);
 				INFOPLIST_FILE = popilicity_mobile/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1435,11 +1473,13 @@
 					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-image-to-base64/ios",
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
+					"$(SRCROOT)/../node_modules/react-native-asset-resize-to-base64/ios/RNAssetResizeToBase64/**",
 				);
 				INFOPLIST_FILE = "popilicity_mobile-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1479,11 +1519,13 @@
 					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-image-to-base64/ios",
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
+					"$(SRCROOT)/../node_modules/react-native-asset-resize-to-base64/ios/RNAssetResizeToBase64/**",
 				);
 				INFOPLIST_FILE = "popilicity_mobile-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1524,6 +1566,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.popilicity_mobile-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1548,6 +1591,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",

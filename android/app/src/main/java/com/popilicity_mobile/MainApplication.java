@@ -3,6 +3,7 @@ package com.popilicity_mobile;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import RNAssetResizeToBase64.RNAssetResizeToBase64Package;
 import com.imagepicker.ImagePickerPackage;
 import com.github.xfumihiro.react_native_image_to_base64.ImageToBase64Package;
 import com.RNFetchBlob.RNFetchBlobPackage;
@@ -28,6 +29,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNAssetResizeToBase64Package(),
             new ImagePickerPackage(),
             new ImageToBase64Package(),
             new RNFetchBlobPackage(),

@@ -10,7 +10,8 @@ import{
   TouchableOpacity,
   NativeModules,
   CameraRoll,
-  ScrollView
+  ScrollView,
+  AlertIOS
 } from 'react-native';
 
 import NavigationBar from '../components/NavigationBar';
@@ -42,48 +43,67 @@ export default class LibraryScreen extends React.Component {
     </TouchableOpacity>)
     this.setState({rightButton: rightButton});
 
-    RNPhotosFramework.getAssets({
-      //Example props below. Many optional.
-      // You can call this function multiple times providing startIndex and endIndex as
-      // pagination.
-      startIndex: 0,
-      endIndex: 100,
-
-      fetchOptions : {
-        // Media types you wish to display. See table below for possible options. Where
-        // is the image located? See table below for possible options.
-        sourceTypes: ['userLibrary'],
-
-        sortDescriptors : [
-          {
-            key: 'creationDate',
-          }
-        ]
-      }
-    }).then((response) => {
-      //console.log('image setted');
-      this.setState({images : response.assets});
-      this.setState({image : response.assets[0]});
-      //console.log(response.assets[0]);
+    RNPhotosFramework.requestAuthorization().then((statusObj) => {
+        this.setState({isAuthorized: statusObj.isAuthorized})
+        if(statusObj.isAuthorized) {
+            this.getAssets();
+        }
     });
+
+  }
+
+  getAssets = () => {
+      RNPhotosFramework.getAssets({
+        //Example props below. Many optional.
+        // You can call this function multiple times providing startIndex and endIndex as
+        // pagination.
+        startIndex: 0,
+        endIndex: 100,
+
+        fetchOptions : {
+          // Media types you wish to display. See table below for possible options. Where
+          // is the image located? See table below for possible options.
+          sourceTypes: ['userLibrary'],
+          prepareForSizeDisplay: (60,60),
+
+          sortDescriptors : [
+            {
+              key: 'creationDate',
+            }
+          ]
+        }
+      }).then((response) => {
+        //console.log('image setted');
+      //   console.log(response.assets)
+        this.setState({images : response.assets});
+        this.setState({image : response.assets[0]});
+        //console.log(response.assets[0]);
+      });
   }
 
   librarImageChoose = () => {
-    let spliettedID = this.state.image.localIdentifier.split('/');
-    let path = 'assets-library://asset/asset.JPG?id='+spliettedID[0]+'&ext=JPG'
+    if(this.state.image === false ){
+        AlertIOS.alert(
+         'Image not found',
+         'Sorry! There is no selected image. Please check, Library Access permissions.'
+        );
+    } else {
+        let spliettedID = this.state.image.localIdentifier.split('/');
+        let path = 'assets-library://asset/asset.JPG?id='+spliettedID[0]+'&ext=JPG'
 
-    NativeModules.RNImageToBase64.getBase64String(path, (err, base64) => {
-      let photoObj = {path: path, base64: 'data:image/jpg;base64,' + base64 };
-      this.props.navigator.push({
-        component: CameraPhotoEdit,
-        passProps: {
-          name: 'Camera',
-          photo: photoObj,
-          toggleTabBar: this.props.toggleTabBar,
-          controller: this.props.controller
-        }
-      });
-    });
+        NativeModules.RNAssetResizeToBase64.assetToResizedBase64(path, 1200, 1200, (err, base64) => {
+            let photoObj = {path: path, base64: 'data:image/jpg;base64,' + base64 };
+            this.props.navigator.push({
+              component: CameraPhotoEdit,
+              passProps: {
+                name: 'Camera',
+                photo: photoObj,
+                toggleTabBar: this.props.toggleTabBar,
+                controller: this.props.controller
+              }
+            });
+        });
+    }
 
   }
 
@@ -103,27 +123,18 @@ export default class LibraryScreen extends React.Component {
           rightButton={this.state.rightButton}
           navigate2Wall = {this.props.navigate2Wall}
         />
+
         <View style={[styles.cameraArea,]}>
           <Image style={styles.cameraArea} source={this.state.image.image} ></Image>
         </View>
+
         <ScrollView style={{width:375}}>
           <View style={styles.libraryimageGrid} >
             { this.state.images.map(this.renderImage.bind(this)) }
-
           </View>
         </ScrollView>
-
       </View>
     );
-  }
-
-  storeImages = (data) => {
-    //console.log('store images');
-    const assets = data.edges;
-    const images = assets.map((asset) => asset.node.image);
-    this.setState({
-      images: images,
-    });
   }
 
   logImageError = (err) => {

@@ -18,21 +18,18 @@ import API from '../components/ApiClient'
 var api = new API();
 
 export default class CameraScreen extends React.Component {
-  componentWillMount(){
-    let leftButton =(
-    <TouchableOpacity onPress={()=>{this.props.navigator.pop(); this.props.toggleTabBar(); }}>
-      <Text style={styles.navBarButtonText}>Cancel</Text>
-    </TouchableOpacity>)
-    this.setState({leftButton: leftButton});
-  }
 
   render(){
+      let leftButton =(
+      <TouchableOpacity onPress={()=>{this.props.navigator.pop(); this.props.toggleTabBar(); }}>
+        <Text style={styles.navBarButtonText}>Cancel</Text>
+      </TouchableOpacity>)
 
     return (
       <View style={[styles.container, {backgroundColor:'#ffffff'}]}>
+      <Text>bla</Text>
         <NavigationBar
-          leftButton= {this.state.leftButton}
-          rightButton= {this.state.rightButton}
+          leftButton= {leftButton}
           navigate2Wall = {this.props.navigate2Wall}
         />
         <Camera
