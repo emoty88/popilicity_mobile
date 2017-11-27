@@ -133,6 +133,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-camera-kit')
     compile project(':react-native-asset-resize-to-base64')
     compile project(':react-native-image-picker')
     compile project(':react-native-image-to-base64')

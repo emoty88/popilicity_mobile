@@ -255,6 +255,7 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').width,
   },
+  
   cameraActionArea:{
     flex:1,
     justifyContent: 'center',

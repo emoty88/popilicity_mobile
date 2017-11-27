@@ -29,7 +29,7 @@ export default class VideoRecordScreen extends React.Component {
         </View>
 
         <View style={styles.cameraActionArea}>
-          <Text>Camera Action Area</Text>
+          <Text>Video functionalty will be activated soon.</Text>
         </View>
 
       </View>

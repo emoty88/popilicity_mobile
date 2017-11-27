@@ -18,7 +18,12 @@ import API from '../components/ApiClient'
 var api = new API();
 
 export default class CameraScreen extends React.Component {
-
+  componentWillMount() {
+      this.setState({cameraPermission:'null'})
+        Camera.checkVideoAuthorizationStatus().then((auth) => {
+            this.setState({cameraPermission:auth})
+        });
+  }
   render(){
       let leftButton =(
       <TouchableOpacity onPress={()=>{this.props.navigator.pop(); this.props.toggleTabBar(); }}>
@@ -27,11 +32,11 @@ export default class CameraScreen extends React.Component {
 
     return (
       <View style={[styles.container, {backgroundColor:'#ffffff'}]}>
-      <Text>bla</Text>
         <NavigationBar
           leftButton= {leftButton}
           navigate2Wall = {this.props.navigate2Wall}
         />
+        {this.state.cameraPermission == true ?
         <Camera
           ref={(cam) => {
             this.camera = cam;
@@ -40,6 +45,9 @@ export default class CameraScreen extends React.Component {
           captureQuality={Camera.constants.CaptureQuality.medium}
           aspect={Camera.constants.Aspect.fill}>
         </Camera>
+        :
+        <Text>You dont have perrmission to access camera.</Text>
+        }
 
         <View style={styles.cameraActionArea}>
           <TouchableOpacity onPress={this.takePicture}>

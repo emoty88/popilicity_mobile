@@ -43,7 +43,7 @@ export default class LibraryScreen extends React.Component {
     </TouchableOpacity>)
     this.setState({rightButton: rightButton});
 
-    RNPhotosFramework.requestAuthorization().then((statusObj) => {
+    RNPhotosFramework.authorizationStatus().then((statusObj) => {
         this.setState({isAuthorized: statusObj.isAuthorized})
         if(statusObj.isAuthorized) {
             this.getAssets();

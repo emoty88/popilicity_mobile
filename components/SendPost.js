@@ -8,8 +8,11 @@ import{
   Text,
   TouchableOpacity,
 } from 'react-native';
+
+import Camera from 'react-native-camera';
 import NavigationBar from '../components/NavigationBar';
 
+import RNPhotosFramework from 'react-native-photos-framework';
 import CameraScreen from '../components/CameraScreen';
 import LibraryScreen from '../components/LibraryScreen';
 import VideoRecordScreen from '../components/VideoRecordScreen';
@@ -23,16 +26,12 @@ var api = new API();
 export default class SendPost extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { leftButton: <Text></Text>, rightButton:<Text></Text> };
+    //this.state = { leftButton: <Text></Text>, rightButton:<Text></Text> };
 
   }
-
   componentWillMount() {
-    let leftButton =(
-    <TouchableOpacity onPress={()=>{this.props.navigator.pop(); this.props.toggleTabBar(); }}>
-      <Text style={styles.navBarButtonText}>Cancel</Text>
-    </TouchableOpacity>)
-    this.setState({leftButton: leftButton});
+      RNPhotosFramework.requestAuthorization();
+      Camera.checkVideoAuthorizationStatus();
   }
 
   librarImageChoose = () =>{
@@ -51,8 +50,6 @@ export default class SendPost extends React.Component {
 
     });
   }
-
-
 
   render(){
     return (
