@@ -173,6 +173,31 @@ var API = class{
     return promise
   }
 
+  async get_post(ID){
+    const token = await AsyncStorage.getItem('@authToken:token');
+    let options = {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'JWT ' + token
+      }
+    };
+    let promise = fetch(SETTINGS.API_URL + 'posts/?owner=' + userID, options)
+    .then((response) => response.json())
+    .then((responseJson) => {
+      return responseJson;
+    })
+    .catch((error) => {
+      console.error(error);
+      //return error
+
+      return false
+    });
+
+    return promise
+  }
+
   async logout(){
     let keys = ['@authToken:token', '@username', '@password'];
     let promise = await AsyncStorage.multiRemove(keys, (err) => {

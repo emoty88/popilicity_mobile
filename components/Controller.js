@@ -67,6 +67,10 @@ export default class Controller extends React.Component {
         return api.get_posts(page);
     }
 
+    loadPost = (ID) => {
+        return api.get_post(ID);
+    }
+
     flagPost = (userID, postID, userName) => {
         var BUTTONS = [
             'Report this post',

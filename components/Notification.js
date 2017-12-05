@@ -12,6 +12,7 @@ import{
   TouchableOpacity,
 } from 'react-native';
 
+import PostDetail from '../components/PostDetail';
 import NavigationBar from '../components/NavigationBar';
 const CachedImage = require('react-native-cached-image');
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -30,24 +31,37 @@ class NotificationTemplate extends React.Component{
       reactionTest = 'commented'
     }
     return(
-      <View style={{flex:1, flexDirection:'row'}}>
-        <CachedImage
-           style={styles.PostItemProfileImage}
-           source={{uri: SETTINGS.SITE_URL + this.props.item.owner.image_path, cache: 'default'}}
-         />
-         <View style={{flex:1, margin:13}}>
-         <Text>
-          <Text style={{fontWeight:'bold'}}>{this.props.item.owner.first_name}</Text> {reactionTest} your post
-         </Text>
-         <TimeAgo time={this.props.item.create_date} />
-         </View>
-         <CachedImage
-            style={{width:50,height:50,  marginTop:10, marginRight:10}}
-            source={{uri: this.props.item.target_post.path}}
-         />
+        <TouchableOpacity onPress={this.navigate2post}>
+            <View style={{flex:1, flexDirection:'row'}}>
+                <CachedImage
+                   style={styles.PostItemProfileImage}
+                   source={{uri: SETTINGS.SITE_URL + this.props.item.owner.image_path, cache: 'default'}}
+                 />
+                 <View style={{flex:1, margin:13}}>
+                 <Text>
+                  <Text style={{fontWeight:'bold'}}>{this.props.item.owner.first_name}</Text> {reactionTest} your post
+                 </Text>
+                    <TimeAgo time={this.props.item.create_date} />
+                 </View>
+                 <CachedImage
+                    style={{width:50,height:50,  marginTop:10, marginRight:10}}
+                    source={{uri: this.props.item.target_post.path}}
+                 />
 
-      </View>
+            </View>
+        </TouchableOpacity>
     )
+  }
+
+  navigate2post = () => {
+      console.log('sdsdd');
+      let route = {
+        component: PostDetail,
+        passProps: {
+          post: this.props.item.target_post
+        }
+      };
+      this.props.navigator.push(route);
   }
 }
 export default class Notification extends React.Component{
@@ -88,7 +102,7 @@ export default class Notification extends React.Component{
           }
           dataSource={profileSource}
           renderRow={(noti) =>
-            <NotificationTemplate key={noti.id} item={noti} />
+            <NotificationTemplate key={noti.id} item={noti} navigator={this.props.navigator}/>
           }
         />
       </View>

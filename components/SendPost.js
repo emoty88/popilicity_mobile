@@ -29,9 +29,9 @@ export default class SendPost extends React.Component {
     //this.state = { leftButton: <Text></Text>, rightButton:<Text></Text> };
 
   }
-  componentWillMount() {
-      RNPhotosFramework.requestAuthorization();
-      Camera.checkVideoAuthorizationStatus();
+  async componentWillMount() {
+      await RNPhotosFramework.requestAuthorization();
+      await Camera.checkVideoAuthorizationStatus();
   }
 
   librarImageChoose = () =>{

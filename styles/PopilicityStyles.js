@@ -255,7 +255,7 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').width,
   },
-  
+
   cameraActionArea:{
     flex:1,
     justifyContent: 'center',
@@ -401,12 +401,13 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   searchProfileUserItemContainer: {
+    flex:1,
     backgroundColor: '#fff',
     flexDirection: 'row',
     paddingVertical: 10,
   },
   searchProfileUserItemTextArea:{
-    marginLeft: 10,
+    marginLeft: 1,
   },
   searchProfileUserItemImage: {
     width: 30,

@@ -18,6 +18,7 @@ import{
 import NavigationBar from '../components/NavigationBar';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Spinner from 'react-native-loading-spinner-overlay';
+var TimeAgo = require('react-native-timeago');
 
 import API from '../components/ApiClient'
 var api = new API();
@@ -28,6 +29,8 @@ var CommentItem = React.createClass({
   render(){
 
     let comment = this.props.comment;
+    console.log('comment');
+    console.log(comment);
 
     return (
       <View style={styles.commentItemContainer}>
@@ -43,7 +46,7 @@ var CommentItem = React.createClass({
               {comment.owner.first_name} </Text>
               {comment.text}
           </Text>
-          <Text style={styles.commentItemDate}>12 Minutes Ago !!!!</Text>
+          <TimeAgo style={styles.commentItemDate} time={comment.create_date} />
         </View>
       </View>
     );

@@ -20,9 +20,9 @@ var api = new API();
 export default class CameraScreen extends React.Component {
   componentWillMount() {
       this.setState({cameraPermission:'null'})
-        Camera.checkVideoAuthorizationStatus().then((auth) => {
-            this.setState({cameraPermission:auth})
-        });
+      Camera.checkVideoAuthorizationStatus().then((auth) => {
+          this.setState({cameraPermission:auth})
+      });
   }
   render(){
       let leftButton =(
@@ -37,11 +37,13 @@ export default class CameraScreen extends React.Component {
           navigate2Wall = {this.props.navigate2Wall}
         />
         {this.state.cameraPermission == true ?
+
         <Camera
           ref={(cam) => {
             this.camera = cam;
           }}
           style={styles.cameraArea}
+          captureTarget = {Camera.constants.CaptureTarget.memory}
           captureQuality={Camera.constants.CaptureQuality.medium}
           aspect={Camera.constants.Aspect.fill}>
         </Camera>
@@ -61,24 +63,33 @@ export default class CameraScreen extends React.Component {
   }
 
   takePicture = () => {
-    //console.log('photo taken.');
+    console.log('photo taken.');
     this.camera.capture()
     .then((data) => {
-      //console.log(data.path);
-
-      NativeModules.RNImageToBase64.getBase64String(data.path, (err, base64) => {
-        let photoObj = {path: data.path, base64: 'data:image/jpg;base64,' + base64 };
-        this.props.navigator.push({
-          component: CameraPhotoEdit,
-          passProps: {
-            name: 'Camera',
-            photo: photoObj,
-            toggleTabBar: this.props.toggleTabBar,
-            controller: this.props.controller
-          }
-        });
-
+      //console.log(data.data);
+      let photoObj = {path: 'deprecated', base64: 'data:image/jpg;base64,' + data.data };
+      this.props.navigator.push({
+        component: CameraPhotoEdit,
+        passProps: {
+          name: 'Camera',
+          photo: photoObj,
+          toggleTabBar: this.props.toggleTabBar,
+          controller: this.props.controller
+        }
       });
+      // NativeModules.RNAssetResizeToBase64.assetToResizedBase64(data.path, 1200, 1200, (err, base64) => {
+      //   let photoObj = {path: data.path, base64: 'data:image/jpg;base64,' + base64 };
+      //   this.props.navigator.push({
+      //     component: CameraPhotoEdit,
+      //     passProps: {
+      //       name: 'Camera',
+      //       photo: photoObj,
+      //       toggleTabBar: this.props.toggleTabBar,
+      //       controller: this.props.controller
+      //     }
+      //   });
+      //
+      // });
 
     })
     .catch(err => console.error(err));

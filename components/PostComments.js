@@ -11,6 +11,7 @@ import{
 } from 'react-native';
 import CommentView from '../components/CommentView';
 import Icon from 'react-native-vector-icons/FontAwesome';
+var TimeAgo = require('react-native-timeago');
 
 var PostComments = React.createClass({
   render(){
@@ -32,7 +33,7 @@ var PostComments = React.createClass({
           <TouchableOpacity onPress={this.props._nav2comments}>
             <Text style={styles.PostItemCommentViewAll}>View All comments</Text>
           </TouchableOpacity>
-          <Text style={styles.PostItemCommentDate}>2 Hours ago</Text>
+          <TimeAgo style={styles.PostItemCommentDate} time={firstComment.create_date} />
         </View>
       </View>
     );

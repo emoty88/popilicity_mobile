@@ -25,7 +25,7 @@ import ProfileItem from '../components/ProfileItem';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 var ScrollableTabView = require('react-native-scrollable-tab-view');
-import ActionSheet from 'react-native-actionsheet';
+//import ActionSheet from 'react-native-actionsheet';
 
 import API from '../components/ApiClient'
 var api = new API();
@@ -38,6 +38,7 @@ class ProfileWall extends React.Component{
         return(
             <ScrollView>
                 {ProfileComponents}
+                <Text></Text>
             </ScrollView>
         )
     }
@@ -99,6 +100,7 @@ class PostWall extends React.Component {
             <View>
                 {uploadingPost}
                 {PostComponents}
+                <Text></Text>
             </View>
         )
     }
@@ -252,11 +254,13 @@ export default class Wall extends React.Component {
   }
 
   _navigate2Notification = () => {
+    console.log('sdds');
     this.setState({notCount:0})
     let route = {
       component: Notification,
       passProps: {
         name: 'Notification',
+        navigator : this.props.navigator,
         toggleTabBar: this._toggleTabBar,
       }
     }
