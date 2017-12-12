@@ -261,6 +261,7 @@ export default class Wall extends React.Component {
       passProps: {
         name: 'Notification',
         navigator : this.props.navigator,
+        controller : this.props.controller,
         toggleTabBar: this._toggleTabBar,
       }
     }

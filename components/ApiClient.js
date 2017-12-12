@@ -183,7 +183,7 @@ var API = class{
         'Authorization': 'JWT ' + token
       }
     };
-    let promise = fetch(SETTINGS.API_URL + 'posts/?owner=' + userID, options)
+    let promise = fetch(SETTINGS.API_URL + 'posts/' + ID, options)
     .then((response) => response.json())
     .then((responseJson) => {
       return responseJson;

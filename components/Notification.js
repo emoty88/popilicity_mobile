@@ -33,13 +33,15 @@ class NotificationTemplate extends React.Component{
     return(
         <TouchableOpacity onPress={this.navigate2post}>
             <View style={{flex:1, flexDirection:'row'}}>
+                <TouchableOpacity onPress={()=>{this.props.controller.NavigateUserProfile(this.props.navigator, this.props.item.owner)}}>
                 <CachedImage
                    style={styles.PostItemProfileImage}
                    source={{uri: SETTINGS.SITE_URL + this.props.item.owner.image_path, cache: 'default'}}
                  />
+                </TouchableOpacity>
                  <View style={{flex:1, margin:13}}>
                  <Text>
-                  <Text style={{fontWeight:'bold'}}>{this.props.item.owner.first_name}</Text> {reactionTest} your post
+                  <Text style={{fontWeight:'bold'}} onPress={()=>{this.props.controller.NavigateUserProfile(this.props.navigator, this.props.item.owner)}}>{this.props.item.owner.first_name}</Text> {reactionTest} your post
                  </Text>
                     <TimeAgo time={this.props.item.create_date} />
                  </View>
@@ -54,7 +56,6 @@ class NotificationTemplate extends React.Component{
   }
 
   navigate2post = () => {
-      console.log('sdsdd');
       let route = {
         component: PostDetail,
         passProps: {
@@ -102,7 +103,7 @@ export default class Notification extends React.Component{
           }
           dataSource={profileSource}
           renderRow={(noti) =>
-            <NotificationTemplate key={noti.id} item={noti} navigator={this.props.navigator}/>
+            <NotificationTemplate key={noti.id} item={noti} navigator={this.props.navigator} controller={this.props.controller}/>
           }
         />
       </View>

@@ -103,6 +103,7 @@ export default class ProfileDetail extends React.Component {
                       Points
                      </Text>
                    </View>
+
                    <View style={{marginHorizontal:15}}>
                      <Text style={{marginTop:10, alignSelf:'center', fontWeight:'bold'}}>
                       {this.state.profile ? this.state.profile.post_count: '0' }
@@ -111,22 +112,25 @@ export default class ProfileDetail extends React.Component {
                       Posts
                      </Text>
                    </View>
-                   <View style={{marginHorizontal:15}}>
+
+                   {/* <View style={{marginHorizontal:15}}>
                      <Text style={{marginTop:10, alignSelf:'center', fontWeight:'bold'}}>
                       {this.state.profile ? this.state.profile.like_count: '0' }
                      </Text>
                      <Text style={{alignSelf:'center', color:'#808685', fontSize:12}}>
                       Likes
                      </Text>
-                   </View>
-                   <View style={{marginHorizontal:15}}>
+                   </View> */}
+
+                   {/* <View style={{marginHorizontal:15}}>
                      <Text style={{marginTop:10, alignSelf:'center', fontWeight:'bold'}}>
                       {this.state.profile ? this.state.profile.dislike_count: '0' }
                      </Text>
                      <Text style={{alignSelf:'center', color:'#808685', fontSize:12}}>
                       Dislikes
                      </Text>
-                   </View>
+                   </View> */}
+
                  </View>
                </View>
                <View style={styles.UserProfileCardL2}>

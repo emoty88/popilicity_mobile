@@ -100,9 +100,17 @@ var CameraPhotoDetail = React.createClass({
   },
   _publishPost(){
     // this.setState({visible: true});
-    this.props.toggleTabBar();
-    this.props.controller.publishPost(this.props.photo, this.state.comment, this.state.interest, this.state.location);
-    this.props.navigator.popToTop();
+    if(this.state.comment == '' || this.state.interest == '' || this.state.location == ''){
+        AlertIOS.alert(
+         'Required field error',
+         'Please fill all field before publish your post.'
+        );
+    } else {
+        this.props.toggleTabBar();
+        this.props.controller.publishPost(this.props.photo, this.state.comment, this.state.interest, this.state.location);
+        this.props.navigator.popToTop();
+    }
+
     // let publishPromise = api.publishPost(this.props.photo, this.state.comment, this.state.interest, this.state.location);
     // publishPromise.then((res) => {
     //   this.setState({visible: true});
