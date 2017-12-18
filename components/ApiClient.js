@@ -207,8 +207,34 @@ var API = class{
     return promise
   }
 
-  async publishPost(image, comment, interest, location){
+  async publishPost(image, comment, interest, location, type=1){
+
     const token = await AsyncStorage.getItem('@authToken:token');
+
+    let body =  {
+      type: 1,
+      path: image.base64,
+      location: {name: location},
+      interest: {name: interest},
+      background: {id:1, name:'The Orange', path:'/static/images/orange_background.png'},
+      comment : comment,
+      status: 1,
+    };
+
+    if(type == 2){
+        body =  {
+          type: 2,
+          path: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAAAAAA6fptVAAAACklEQVQYV2P4DwABAQEAWk1v8QAAAABJRU5ErkJggg==',
+          text: image.text,
+          background: image.image,
+          location: {name: location},
+          interest: {name: interest},
+          comment : comment,
+          status: 1,
+        }
+    }
+    console.log(body);
+
     let options = {
       method: 'POST',
       headers: {
@@ -216,19 +242,16 @@ var API = class{
         'Content-Type': 'application/json',
         'Authorization': 'JWT ' + token
       },
-      body: JSON.stringify({
-        type: 1,
-        path: image.base64,
-        location: {name: location},
-        interest: {name: interest},
-        comment : comment,
-        status: 1,
-      }),
+      body: JSON.stringify(body),
     };
 
     let promise = await fetch(SETTINGS.API_URL + 'posts/', options)
-    .then((response) => response.json())
+    .then((response) => {
+        console.log(response)
+        return response.json()
+    })
     .then((responseJson) => {
+        console.log(responseJson);
       return responseJson;
     })
     .catch((error) => {
@@ -552,6 +575,60 @@ var API = class{
     .then((response) => response.json())
     .then((responseJson) => {
         console.log(responseJson);
+      return responseJson;
+    })
+    .catch((error) => {
+      console.error(error);
+      //return error
+      return false
+    });
+
+    return promise
+  }
+
+
+  async call(endPoint, method='GET', bodyData=null, queryString=false){
+    let token = await AsyncStorage.getItem('@authToken:token');
+    let options = {
+      method: method,
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'JWT ' + token
+      }
+    };
+
+
+    if (bodyData){
+        options['body'] = JSON.stringify(bodyData)
+    }
+
+    let querStr = ''
+    if (queryString){
+        var list = [];
+        for(var p in queryString){
+           if (queryString.hasOwnProperty(p)) {
+               list.push(encodeURIComponent(p) + "=" + encodeURIComponent(queryString[p]));
+           }
+        }
+        querStr = '?' + list.join("&");
+    }
+
+
+    let promise = await fetch(SETTINGS.API_URL + endPoint + '/' + querStr, options)
+    .then((response) => {
+        try {
+            let responseJson = response.json();
+            if (responseJson && responseJson.error)
+              throw new Error(responseJson.error);
+            return responseJson
+        } catch (e) {
+            console.log('buyuk bir hata nedenn')
+            console.log(e)
+            return response.text();
+        }
+    })
+    .then((responseJson) => {
       return responseJson;
     })
     .catch((error) => {

@@ -10,6 +10,8 @@ import{
   TouchableOpacity,
   ScrollView,
   Image,
+  ImageBackground,
+  Dimensions,
 } from 'react-native';
 
 import PostComments from '../components/PostComments';
@@ -83,6 +85,25 @@ export default class PostItem extends React.Component {
 
   render(){
     let post = this.props.post;
+
+    let imageComp = (<CachedImage
+      style={styles.PostItemPostImage}
+      source={{uri: post.path}}
+    />)
+    if(post.type == 2){
+        imageComp = (<ImageBackground style={styles.PostItemPostImage} source={{uri: SETTINGS.SITE_URL + post.background.path}}>
+            <View style={{flex:1,
+                          backgroundColor: 'rgba(0, 0, 0, 0)',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          padding:5
+                      }} >
+                <Text
+                    style={{alignSelf:'stretch', color:'#fff', fontSize:25, fontWeight:'bold', textAlign:'center'}}
+                >{post.text}</Text>
+            </View>
+        </ImageBackground>)
+    }
     return (
       //PostItemContainer
 
@@ -124,10 +145,7 @@ export default class PostItem extends React.Component {
               </View>
             </View>
         </View>
-        <CachedImage
-          style={styles.PostItemPostImage}
-          source={{uri: post.path}}
-        />
+        {imageComp}
 
       <ReactionIcons updateWallFunc = {this.props.updateWallFunc} post={post} _nav2comments={this.commentPage}/>
 

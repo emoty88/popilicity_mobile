@@ -15,7 +15,7 @@ import NavigationBar from '../components/NavigationBar';
 import RNPhotosFramework from 'react-native-photos-framework';
 import CameraScreen from '../components/CameraScreen';
 import LibraryScreen from '../components/LibraryScreen';
-import VideoRecordScreen from '../components/VideoRecordScreen';
+import TextPost from '../components/TextPost';
 
 var ScrollableTabView = require('react-native-scrollable-tab-view');
 
@@ -74,7 +74,11 @@ export default class SendPost extends React.Component {
             controller={this.props.controller}
             tabLabel="Camera" />
 
-          <VideoRecordScreen tabLabel="Video" />
+          <TextPost
+              navigator={this.props.navigator}
+              toggleTabBar={this.props.toggleTabBar}
+              controller={this.props.controller}
+              tabLabel="Text" />
 
         </ScrollableTabView>
       </View>

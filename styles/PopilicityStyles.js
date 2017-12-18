@@ -251,7 +251,7 @@ const styles = StyleSheet.create({
   },
 
   cameraArea: {
-    backgroundColor:'black',
+    //backgroundColor:'black',
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').width,
   },

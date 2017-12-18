@@ -10,6 +10,7 @@ import{
   ScrollView,
   AlertIOS,
   TextInput,
+  ImageBackground
 } from 'react-native';
 
 import NavigationBar from '../components/NavigationBar';
@@ -36,6 +37,28 @@ var CameraPhotoDetail = React.createClass({
       <Text style={styles.navBarButtonText}>Publish</Text>
     </TouchableOpacity>)
 
+    let imageComp = (<Image
+      style={styles.photoDetailPhoto}
+      source={{uri: this.props.photo.base64}}/>)
+
+    if(this.props.photo.type == 'text'){
+        imageComp = (
+            <ImageBackground style={styles.photoDetailPhoto} source={{uri: SETTINGS.SITE_URL + this.props.photo.image.path}}>
+                <View style={{ flex:1,
+                                backgroundColor: 'rgba(0, 0, 0, 0)',
+                                justifyContent: 'center',
+                              alignItems: 'center',
+                              padding:5
+                          }} >
+                    <Text style={{alignSelf:'stretch', color:'#fff', fontSize:4, fontWeight:'bold', textAlign:'center'}}>
+                        {this.props.photo.text}
+                    </Text>
+
+                </View>
+            </ImageBackground>
+        )
+    }
+
     return (
       <View style={[styles.container, {backgroundColor: '#FAFAFA'}]}>
         <NavigationBar
@@ -55,9 +78,7 @@ var CameraPhotoDetail = React.createClass({
             }}
             />
         </ScrollView>
-        <Image
-          style={styles.photoDetailPhoto}
-          source={{uri: this.props.photo.base64}}/>
+        {imageComp}
       </View>
 
       <View style={styles.fwInputContainer}>

@@ -52,8 +52,11 @@ export default class Controller extends React.Component {
     publishPost = (image, comment, interest, location) => {
         this.postImage = image;
         this.postUploading = true;
-
-        let publishPromise = api.publishPost(image, comment, interest, location);
+        let type = 1
+        if(image.type == 'text'){
+            type = 2;
+        }
+        let publishPromise = api.publishPost(image, comment, interest, location, type);
         publishPromise.then((res) => {
             // console.log('asd');
             this.postUploading = false;
